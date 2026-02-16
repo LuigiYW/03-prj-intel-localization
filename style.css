@@ -1,0 +1,215 @@
+/* Add your CSS here */
+
+/* Remove default page margin so header touches the edges */
+body {
+	margin: 0;
+	font-family: "Lato", Arial, sans-serif; /* Paragraph font */
+	min-height: 100vh; /* Use full screen height */
+	font-size: 2.6vh; /* Base text size scales with height */
+}
+
+/* Headings use Fira Sans */
+h1,
+h2,
+h3 {
+	font-family: "Fira Sans", Arial, sans-serif;
+}
+
+/* Header layout: logo on the left, text on the right */
+.site-header {
+	display: flex; /* Let content center vertically */
+	align-items: center; /* Center logo and text vertically */
+	padding: 8vh 16px; /* Header scales with device height */
+	background-color: #0b4fa8;
+	background-image: linear-gradient(
+			rgba(11, 79, 168, 0.55),
+			rgba(11, 79, 168, 0.55)
+		),
+		url("img/technology.jpg");
+	background-size: cover;
+	background-position: center;
+	box-sizing: border-box;
+}
+
+.header-content {
+	display: flex;
+	align-items: center; /* Vertically center the logo and text */
+	justify-content: space-between; /* Push logo left and text right */
+	gap: 20px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.intel-logo {
+	width: 140px;
+	max-width: 100%;
+	height: auto;
+}
+
+.header-text h1 {
+	font-size: 5vh; /* Scale heading with height */
+	line-height: 1.1;
+	margin: 0 0 8px 0;
+}
+
+.header-text p {
+	font-size: 2.8vh; /* Scale paragraph with height */
+	line-height: 1.4;
+	margin: 0;
+}
+
+.header-text {
+	text-align: right;
+	color: white;
+	padding: 16px 0; /* Give the text block breathing room */
+	max-width: 100%;
+}
+
+/* Timeline: horizontal scroll on larger screens */
+.timeline {
+	min-height: 75vh; /* At least 75% of screen height */
+	display: flex;
+	align-items: flex-start; /* Let cards keep their own height */
+	gap: 16px;
+	overflow-x: auto;
+	padding: 32px 16px 16px;
+}
+
+.timeline-card {
+	flex: 0 0 auto;
+	min-width: 224px; /* 30% smaller than 320px */
+	max-width: 266px; /* 30% smaller than 380px */
+	height: 320px; /* Keep all cards the same height */
+	background-color: #ffffff;
+	padding: 14px; /* 30% smaller than 20px */
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	display: flex;
+	flex-direction: column;
+	position: relative; /* Anchor the hover text overlay */
+	transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-card h2,
+.timeline-card h3 {
+	margin: 0 0 6px 0;
+}
+
+.timeline-media {
+	flex: 1;
+	min-height: 140px; /* 30% smaller than 200px */
+	margin-top: 8px;
+}
+
+.timeline-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 6px;
+	display: block;
+}
+
+.timeline-card p {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 12px;
+	background-image: linear-gradient(
+		to bottom,
+		rgba(11, 79, 168, 0.9),
+		rgba(11, 79, 168, 0.65)
+	);
+	color: #ffffff;
+	border-radius: 6px;
+	opacity: 0;
+	transform: translateY(8px);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.timeline-card:hover {
+	background-color: #e6f0ff; /* Slight blue on hover */
+	transform: scale(1.03);
+	box-shadow: 0 6px 16px rgba(11, 79, 168, 0.2);
+}
+
+.timeline-card:hover p {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.timeline-card h2 {
+	font-size: 3.6vh; /* Scale year text with height */
+}
+
+.timeline-card h3 {
+	font-size: 3vh; /* Scale title text with height */
+}
+
+.timeline-note {
+	margin: 8px 0 24px 16px;
+}
+
+/* Stack on small screens for readability */
+@media (max-width: 600px) {
+	.header-content {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 28px; /* More space between logo and text */
+	}
+	
+	.header-text {
+		text-align: left;
+	}
+
+	/* Timeline: vertical scroll (normal flow) on small screens */
+	.timeline {
+		flex-direction: column;
+		overflow-x: visible;
+		padding: 16px;
+	}
+
+	.timeline-card {
+		min-width: 0;
+		max-width: none;
+		width: 100%;
+		height: auto; /* Let cards grow on small screens */
+		box-sizing: border-box;
+	}
+}
+
+/* Desktop-only: fit everything to the screen height */
+@media (min-width: 601px) {
+	body {
+		height: 100vh; /* Keep page the same height as the screen */
+		display: flex; /* Stack header, timeline, note */
+		flex-direction: column;
+		overflow: hidden; /* Stop vertical scrolling */
+	}
+	.site-header {
+		padding: 6vh 16px; /* Header scales with device height */
+	}
+
+	.timeline {
+		flex: 1; /* Use remaining height */
+		min-height: 0; /* Let flexbox control height */
+		align-items: center; /* Center cards vertically */
+		padding: 8px 16px; /* Smaller padding to fit the screen */
+	}
+
+	.timeline-note {
+		margin: 0; /* Remove extra space to avoid scrolling */
+		padding: 8px 16px 16px;
+	}
+}
+
+/* Extra tall screens: add padding */
+@media (min-width: 601px) and (min-height: 800px) {
+	.site-header {
+		padding: 10vh 16px; /* More breathing room on tall screens */
+	}
+}
