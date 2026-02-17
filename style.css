@@ -4,8 +4,9 @@
 body {
 	margin: 0;
 	font-family: "Lato", Arial, sans-serif; /* Paragraph font */
-	min-height: 100vh; /* Use full screen height */
-	font-size: 2.6vh; /* Base text size scales with height */
+	min-height: 0; /* Let the page grow naturally */
+	font-size: 16px; /* Base text size */
+	background-color: #f3f8ff; /* Very light blue page background */
 }
 
 /* Headings use Fira Sans */
@@ -19,15 +20,13 @@ h3 {
 .site-header {
 	display: flex; /* Let content center vertically */
 	align-items: center; /* Center logo and text vertically */
-	padding: 8vh 16px; /* Header scales with device height */
+	padding: 80px 16px; /* Fixed header height */
 	background-color: #0b4fa8;
 	background-image: linear-gradient(
-			rgba(11, 79, 168, 0.55),
-			rgba(11, 79, 168, 0.55)
-		),
-		url("img/technology.jpg");
-	background-size: cover;
-	background-position: center;
+		to bottom,
+		#0b4fa8,
+		#06306b
+	);
 	box-sizing: border-box;
 }
 
@@ -47,13 +46,13 @@ h3 {
 }
 
 .header-text h1 {
-	font-size: 5vh; /* Scale heading with height */
+	font-size: 40px; /* Fixed heading size */
 	line-height: 1.1;
 	margin: 0 0 8px 0;
 }
 
 .header-text p {
-	font-size: 2.8vh; /* Scale paragraph with height */
+	font-size: 18px; /* Fixed paragraph size */
 	line-height: 1.4;
 	margin: 0;
 }
@@ -67,26 +66,35 @@ h3 {
 
 /* Timeline: horizontal scroll on larger screens */
 .timeline {
-	min-height: 75vh; /* At least 75% of screen height */
+	min-height: 600px; /* Fixed timeline height */
 	display: flex;
 	align-items: flex-start; /* Let cards keep their own height */
 	gap: 16px;
+	margin: 24px auto 0; /* Space between header and timeline */
 	overflow-x: auto;
 	padding: 32px 16px 16px;
+	width: 90%;
+	margin: 0 auto;
 }
 
 .timeline-card {
+	/* Grow on tall screens, but keep a safe min/max */
+	--card-height: clamp(220px, 360px, 440px);
+	/* One scale value controls both text and image size */
+	--text-size: calc(var(--card-height) / 20);
 	flex: 0 0 auto;
 	min-width: 224px; /* 30% smaller than 320px */
 	max-width: 266px; /* 30% smaller than 380px */
-	height: 320px; /* Keep all cards the same height */
+	height: var(--card-height); /* Keep all cards the same height */
 	background-color: #ffffff;
 	padding: 14px; /* 30% smaller than 20px */
 	border-radius: 6px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
 	position: relative; /* Anchor the hover text overlay */
+	/* Scale card text with the card height (not the viewport) */
+	font-size: var(--text-size);
 	transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -96,9 +104,11 @@ h3 {
 }
 
 .timeline-media {
-	flex: 1;
-	min-height: 140px; /* 30% smaller than 200px */
+	width: 90%;
+	aspect-ratio: 1 / 1;
+	height: auto;
 	margin-top: 8px;
+	align-self: center; /* Keep the square centered in the card */
 }
 
 .timeline-image {
@@ -117,6 +127,8 @@ h3 {
 	bottom: 0;
 	margin: 0;
 	padding: 12px;
+	font-size: 1em;
+	line-height: 1.4;
 	background-image: linear-gradient(
 		to bottom,
 		rgba(11, 79, 168, 0.9),
@@ -134,7 +146,7 @@ h3 {
 .timeline-card:hover {
 	background-color: #e6f0ff; /* Slight blue on hover */
 	transform: scale(1.03);
-	box-shadow: 0 6px 16px rgba(11, 79, 168, 0.2);
+	box-shadow: 0 3px 8px rgba(11, 79, 168, 0.18);
 }
 
 .timeline-card:hover p {
@@ -143,15 +155,68 @@ h3 {
 }
 
 .timeline-card h2 {
-	font-size: 3.6vh; /* Scale year text with height */
+	font-size: 1.4em; /* Scale year text with card height */
 }
 
 .timeline-card h3 {
-	font-size: 3vh; /* Scale title text with height */
+	font-size: 1.2em; /* Scale title text with card height */
 }
 
 .timeline-note {
 	margin: 8px 0 24px 16px;
+}
+
+.content-section,
+.subscribe-section {
+	background-color: #ffffff;
+	border-radius: 8px;
+	padding: 24px;
+}
+
+/* Small icons next to the 3-column headings */
+.section-icon {
+	font-size: 1.1em;
+	margin-right: 8px;
+	vertical-align: middle;
+	color: #0b4fa8;
+}
+
+/* Footer layout and colors */
+.site-footer {
+	background-color: #0b4fa8;
+	color: #ffffff;
+	padding: 24px 16px;
+}
+
+.footer-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.footer-brand {
+	margin: 0;
+	font-weight: 700;
+}
+
+.footer-links {
+	list-style: none;
+	display: flex;
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+}
+
+.footer-links a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.footer-links a:hover {
+	text-decoration: underline;
 }
 
 /* Stack on small screens for readability */
@@ -180,24 +245,40 @@ h3 {
 		height: auto; /* Let cards grow on small screens */
 		box-sizing: border-box;
 	}
+
+	.timeline-media {
+		width: 100%;
+		aspect-ratio: 4 / 3; /* Rectangular images on mobile */
+	}
+
+	/* Stack footer items on small screens */
+	.footer-content {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.footer-links {
+		flex-direction: column;
+		gap: 8px;
+	}
 }
 
 /* Desktop-only: fit everything to the screen height */
 @media (min-width: 601px) {
 	body {
-		height: 100vh; /* Keep page the same height as the screen */
-		display: flex; /* Stack header, timeline, note */
-		flex-direction: column;
-		overflow: hidden; /* Stop vertical scrolling */
+		height: auto; /* Let the page grow naturally */
+		display: block;
+		overflow: visible; /* Page handles scrolling */
 	}
 	.site-header {
-		padding: 6vh 16px; /* Header scales with device height */
+		padding: 60px 16px; /* Fixed header height */
 	}
 
 	.timeline {
 		flex: 1; /* Use remaining height */
 		min-height: 0; /* Let flexbox control height */
 		align-items: center; /* Center cards vertically */
+		margin: 16px auto 0; /* Keep a small gap on desktop */
 		padding: 8px 16px; /* Smaller padding to fit the screen */
 	}
 
@@ -210,6 +291,6 @@ h3 {
 /* Extra tall screens: add padding */
 @media (min-width: 601px) and (min-height: 800px) {
 	.site-header {
-		padding: 10vh 16px; /* More breathing room on tall screens */
+		padding: 100px 16px; /* More breathing room on tall screens */
 	}
 }
